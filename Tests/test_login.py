@@ -2,15 +2,19 @@ import pytest
 from Pages.home_page import HomePage
 from Pages.login_page import LoginPage
 import os
+import logging
 
-# Test for a valid login
+logger = logging.getLogger(__name__)
+
+
+@pytest.mark.order(2)
 def test_valid_login(driver):
     """
     Test the login functionality with valid credentials.
 
     Steps:
     1. Verify the login page is displayed.
-    2. Perform login using valid credentials (username: 'standard_user', password: 'secret_sauce').
+    2. Perform login using credentials from environment variables.
     3. Verify the home page is displayed after successful login.
 
     :param driver: Appium WebDriver instance provided by the pytest fixture.
@@ -28,9 +32,7 @@ def test_valid_login(driver):
     login_page = LoginPage(driver)
 
     # Step 1: Ensure login page is loaded
-    login_button = login_page.get_element(login_page.login_button)
-    assert login_button is not None and login_button.is_displayed(), \
-        "Login page not loaded: Login button is not displayed."
+    assert login_page.is_on_login_page(), "Login page not loaded: Login form is not displayed."
 
     # Step 2: Perform valid login
     login_page.perform_login("standard_user", "secret_sauce")
@@ -39,7 +41,7 @@ def test_valid_login(driver):
     home_page = HomePage(driver)
     assert home_page.is_logged_in(), "Home page not loaded: User is not logged in."
 
-
+@pytest.mark.order(1)
 @pytest.mark.parametrize(
     "username, password, expected_message",
     [
@@ -68,9 +70,7 @@ def test_invalid_login(driver, username, password, expected_message):
     login_page = LoginPage(driver)
 
     # Step 1: Ensure login page is loaded
-    login_button = login_page.get_element(login_page.login_button)
-    assert login_button is not None and login_button.is_displayed(), \
-        "Login page not loaded: Login button is not displayed."
+    assert login_page.is_on_login_page(), "Login page not loaded: Login form is not displayed."
 
     # Step 2: Perform login with invalid credentials
     login_page.perform_login(username, password)

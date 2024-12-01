@@ -6,7 +6,6 @@ import logging
 
 logger = logging.getLogger("test_logger")  # Debug logger (if needed)
 
-
 class HomePage(BasePage):
     """
     HomePage encapsulates interactions with the main screen of the application after login.
@@ -19,8 +18,8 @@ class HomePage(BasePage):
 
         :param driver: Appium WebDriver instance for interacting with the app.
         """
-        super().__init__(driver)
-        self.inventory_title = (AppiumBy.XPATH, '//android.widget.TextView[@text="PRODUCTS"]')
+        super().__init__(driver)  # Initialize the base class
+        self.inventory_title = (AppiumBy.XPATH, '//android.widget.TextView[@text="PRODUCTS"]')  # Define the XPath to identify the inventory title
 
     def add_to_cart(self, item_title: str):
         """
@@ -31,7 +30,7 @@ class HomePage(BasePage):
         """
         # Generate the XPath for the "ADD TO CART" button of the specific item
         add_button_xpath = self.get_item_button_xpath(item_title, button_type="ADD TO CART")
-        add_button = self.driver.find_element(AppiumBy.XPATH, add_button_xpath)
+        add_button = self.driver.find_element(AppiumBy.XPATH, add_button_xpath)  # Find the button using XPath
 
         # Click the "ADD TO CART" button
         add_button.click()
@@ -45,7 +44,7 @@ class HomePage(BasePage):
         """
         # Generate the XPath for the "REMOVE" button of the specific item
         remove_button_xpath = self.get_item_button_xpath(item_title, button_type="REMOVE")
-        remove_button = self.driver.find_element(AppiumBy.XPATH, remove_button_xpath)
+        remove_button = self.driver.find_element(AppiumBy.XPATH, remove_button_xpath)  # Find the button using XPath
 
         # Click the "REMOVE" button
         remove_button.click()
@@ -61,8 +60,8 @@ class HomePage(BasePage):
         """
         cart_present = None  # Placeholder to track cart presence
         try:
-            cart_present = self.driver.find_element(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Cart"]')
-            cart_quantity = self.driver.find_element(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Cart"]//android.widget.TextView').get_attribute("text")
+            cart_present = self.driver.find_element(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Cart"]')  # Find the cart icon
+            cart_quantity = self.driver.find_element(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Cart"]//android.widget.TextView').get_attribute("text")  # Get cart quantity text
             if cart_quantity.isdigit():
                 return int(cart_quantity)  # Valid cart quantity
             else:
@@ -81,36 +80,32 @@ class HomePage(BasePage):
             bool: True if the user is on the home screen, False otherwise.
         """
         try:
-            element = self.get_element(self.inventory_title)
-            return element is not None and element.is_displayed()
+            element = self.get_element(self.inventory_title)  # Get the element for the inventory title
+            return element is not None and element.is_displayed()  # Check if the element is displayed
         except NoSuchElementException:
-            return False
+            return False  # If element is not found, user is not logged in
 
-    def get_available_items(self) -> list[str] | None:
+    def get_available_items(self) -> list[str]:
         """
         Get the titles of all available items on the home page.
 
-        :return:
-            - A list of item titles if found.
-            - None if no items are available.
+        :return: A list of item titles. Returns an empty list if no items are found.
         """
-        try:
-            items = self.driver.find_elements(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Item"]')
-            # log the number of items found
-            logger.info(f"Number of items found: {len(items)}")
-            titles = []
-            for item in items:
-                # log the title of each item found
-                try:
-                    item_title = item.find_element(By.XPATH,
-                                                   './/android.widget.TextView[@content-desc="test-Item title"]').get_attribute('text')
-                    logger.info(f"Item title: {item_title}")
-                    titles.append(item_title)
-                except NoSuchElementException:
-                    pass
-            return titles
-        except NoSuchElementException:
-            return None
+        items = self.driver.find_elements(By.XPATH, '//android.view.ViewGroup[@content-desc="test-Item"]')  # Find all item elements
+        logger.info(f"Number of items found: {len(items)}")  # Log the number of items found
+
+        titles = []
+        for item in items:
+            try:
+                # Get the title of each item
+                item_title = item.find_element(By.XPATH,
+                                               './/android.widget.TextView[@content-desc="test-Item title"]').get_attribute('text')
+                logger.info(f"Item title: {item_title}")  # Log the item title
+                titles.append(item_title)  # Append the item title to the list
+            except NoSuchElementException:
+                logger.warning("Item found, but title could not be retrieved.")  # Log warning if title is not found
+
+        return titles  # Return the list of item titles
 
     @staticmethod
     def get_item_button_xpath(item_title: str, button_type: str) -> str:
@@ -121,5 +116,6 @@ class HomePage(BasePage):
         :param button_type: The type of button ('ADD TO CART' or 'REMOVE').
         :return: The constructed XPath for the specified button.
         """
+        # Construct the XPath dynamically using the item title and button type
         return f'//android.widget.TextView[@content-desc="test-Item title" and @text="{item_title}"]' \
-               f'/following-sibling::android.view.ViewGroup[@content-desc="test-{button_type}"]'
+               f'/following-sibling::android.view.ViewGroup[@content-desc="test-{button_type}"]'  # Return XPath

@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="e48e8fa7-1686-4034-b260-e094a949009e" name="Changes" comment="changes to .gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/base_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/base_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/home_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/home_page.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Pages/login_page.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/login_page.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/test_cart_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_cart_operations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/test_login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/test_login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements" beforeDir="false" afterPath="$PROJECT_DIR$/requirements" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +37,12 @@
     &quot;assignee&quot;: &quot;MichalitoOo&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/MichalitoOo/mobile-test-automation.git",
-    "accountId": "49930fd2-e080-4789-82de-4407717ac3a9"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/MichalitoOo/mobile-test-automation.git&quot;,
+    &quot;accountId&quot;: &quot;49930fd2-e080-4789-82de-4407717ac3a9&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
