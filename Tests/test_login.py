@@ -35,7 +35,7 @@ def test_valid_login(driver):
     assert login_page.is_on_login_page(), "Login page not loaded: Login form is not displayed."
 
     # Step 2: Perform valid login
-    login_page.perform_login("standard_user", "secret_sauce")
+    login_page.perform_login(username, password)
 
     # Step 3: Ensure home page is loaded
     home_page = HomePage(driver)
